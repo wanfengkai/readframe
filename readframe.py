@@ -64,3 +64,7 @@ def get_img_by_frame(frame_num, source_movie):
     pre_proc.wait()
 
 
+# example use
+
+get_img_by_frame(62,source_movie)
+
