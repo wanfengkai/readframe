@@ -21,7 +21,7 @@ origin = args.origin
 
 # change the folder name if you want
 temp_movie = './temp'
-vis_path = './vis_folder'
+vis_path = '/vis_folder'
 
 
 def create_if_no_folder(path):
