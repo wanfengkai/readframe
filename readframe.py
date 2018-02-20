@@ -22,7 +22,7 @@ origin = args.origin
 # change the folder name if you want
 temp_movie = './temp'
 vis_path = '/vis_folder'
-
+txt_path= '01_01.txt'
 
 def create_if_no_folder(path):
     if not os.path.exists(path):
@@ -49,6 +49,28 @@ if not os.path.exists(source_movie):
         ['ffmpeg', '-i', origin, '-vf', 'scale=320:240', source_movie])
     pre_proc.wait()
 
+
+
+INDEX_list=[]
+
+with open(txt_path,'r') as f:
+    # skin first layer
+    next(f)
+    for line in f:
+        # frame index
+        index=int(line.split('_')[0])
+        if index not in INDEX_list:
+            # new frame
+            INDEX_list.append(index)
+
+
+print (INDEX_list)
+
+
+
+
+
+
 # create png images by frame number:
 
 
@@ -66,6 +88,7 @@ def get_img_by_frame(frame_num, source_movie):
 
 
 # example use
+for i in INDEX_list:
 
-get_img_by_frame(62,source_movie)
+    get_img_by_frame(i,source_movie)
 
