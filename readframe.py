@@ -7,7 +7,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--origin", help=' the path of your original video',
-                    type=str, default='./try.mp4')
+                    type=str, default='try.mp4')
 
 
 args = parser.parse_args()
@@ -57,6 +57,7 @@ def get_img_by_frame(frame_num, source_movie):
     frame_num: frame index: eg: 16, 100, start with non_zero
 
     '''
+    print('start getting image {}'.format(frame_num))
     save_path = os.path.join(vis_path, 'img_{}.png'.format(frame_num))
     select_frame = 'select=gte(n\,{})'.format(frame_num)
     pre_proc = subprocess.Popen(
