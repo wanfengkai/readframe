@@ -1,7 +1,7 @@
 import os
 import subprocess
 import argparse
-
+import numpy as np
 
 # add argparse for controlling .
 
@@ -21,7 +21,7 @@ origin = args.origin
 
 # change the folder name if you want
 temp_movie = './temp'
-vis_path = '/vis_folder'
+vis_path = '/Users/WFK/Desktop/vis_folder'
 txt_path= '01_01.txt'
 
 def create_if_no_folder(path):
@@ -87,8 +87,27 @@ def get_img_by_frame(frame_num, source_movie):
     pre_proc.wait()
 
 
-# example use
-for i in INDEX_list:
+# create negatvive png images by frame number:
 
-    get_img_by_frame(i,source_movie)
 
+def get_negative_img_by_INDEX_list(INDEX_list, source_movie):
+    '''
+    frame_num: frame index: eg: 16, 100, start with non_zero
+
+    '''
+    maximum_frame = np.max(INDEX_list)
+    for frame_num in range(maximum_frame):
+        if frame_num not in INDEX_list:
+            print('start getting negative image {}'.format(frame_num))
+            save_path = os.path.join(vis_path, 'negative_img_{}.png'.format(frame_num))
+            select_frame = 'select=get(n\,{})'.format(frame_num)
+            pre_proc = subprocess.Popen(
+                ['ffmpeg', '-i', source_movie, '-vf', select_frame, '-vframes', '1', save_path])
+            pre_proc.wait()
+#
+# # example use
+# for i in INDEX_list:
+#
+#     get_img_by_frame(i,source_movie)
+
+get_negative_img_by_INDEX_list(INDEX_list,source_movie)
